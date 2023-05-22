@@ -16,7 +16,7 @@ public class SpringBootRestApiApplication {
 
     @GetMapping("/")
     public String greet(){
-        return "Hello";
+        return "Get call";
     }
 
 }
