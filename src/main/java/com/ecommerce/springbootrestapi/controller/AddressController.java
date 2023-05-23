@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/addresses")
+@RequestMapping("/api/v1/customers/{customerId}/addresses")
 public class AddressController {
 
     private final AddressService addressService;
@@ -19,7 +19,7 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping
     public ResponseEntity<List<Address>> getAddressesByCustomerId(@PathVariable Long customerId) {
         try {
             List<Address> addresses = addressService.getAddressesByCustomerId(customerId);
@@ -30,19 +30,21 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Address> saveAddress(@RequestBody Address address) {
+    public ResponseEntity<Address> saveAddress(@PathVariable Long customerId, @RequestBody Address address) {
         try {
-            Address savedAddress = addressService.saveAddress(address);
+            Address savedAddress = addressService.saveAddress(customerId, address);
             return new ResponseEntity<>(savedAddress, HttpStatus.CREATED);
         } catch (IllegalArgumentException ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAddress(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAddress(@PathVariable Long customerId, @PathVariable Long id) {
         try {
-            addressService.deleteAddress(id);
+            addressService.deleteAddress(customerId, id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (ResourceNotFoundException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -50,7 +52,7 @@ public class AddressController {
     }
 
     @GetMapping("/city/{city}")
-    public ResponseEntity<List<Address>> getAddressesByCity(@PathVariable String city) {
+    public ResponseEntity<List<Address>> getAddressesByCity(@PathVariable String city, @PathVariable String customerId) {
         try {
             List<Address> addresses = addressService.getAddressesByCity(city);
             return new ResponseEntity<>(addresses, HttpStatus.OK);

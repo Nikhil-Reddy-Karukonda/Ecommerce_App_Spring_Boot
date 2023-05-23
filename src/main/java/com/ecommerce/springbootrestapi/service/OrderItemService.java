@@ -28,10 +28,10 @@ public class OrderItemService {
                 .orElseThrow(() -> new ResourceNotFoundException("Order Item not found with id: " + id));
     }
 
-    @Transactional(readOnly = true)
-    public List<OrderItem> getOrderItemsByOrderId(Long orderId) {
-        return orderItemRepository.findByOrder_Id(orderId);
-    }
+//    @Transactional(readOnly = true)
+//    public List<OrderItem> getOrderItemsByOrderId(Long orderId) {
+//        return orderItemRepository.findByOrder_Id(orderId);
+//    }
 
     @Transactional(readOnly = true)
     public Integer getTotalQuantityOrderedOfProduct(Long productId) {

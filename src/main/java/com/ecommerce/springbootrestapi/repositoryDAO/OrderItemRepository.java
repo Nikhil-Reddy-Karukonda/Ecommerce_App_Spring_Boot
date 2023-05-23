@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
     // Find all order items for a specific order.
-    List<OrderItem> findByOrder_Id(Long orderId);
+    // List<OrderItem> findByOrder_Id(Long orderId);
 
     // Get total quantity of a specific product ordered.
     @Query("SELECT SUM(oi.quantity) FROM OrderItem oi WHERE oi.product.id = :productId")

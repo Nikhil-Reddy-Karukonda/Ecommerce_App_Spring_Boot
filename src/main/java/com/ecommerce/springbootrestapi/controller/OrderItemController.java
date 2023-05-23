@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orderItems")
+@RequestMapping("/api/v1/orderItems")
 public class OrderItemController {
 
     private final OrderItemService orderItemService;
@@ -21,6 +21,7 @@ public class OrderItemController {
 
     @GetMapping
     public ResponseEntity<List<OrderItem>> getAllOrderItems() {
+        // fetching all relationships between all products and orders
         return ResponseEntity.ok(orderItemService.getAllOrderItems());
     }
 
@@ -34,13 +35,14 @@ public class OrderItemController {
         }
     }
 
-    @GetMapping("/order/{orderId}")
-    public ResponseEntity<List<OrderItem>> getOrderItemsByOrderId(@PathVariable Long orderId) {
-        return ResponseEntity.ok(orderItemService.getOrderItemsByOrderId(orderId));
-    }
+//    @GetMapping("/order/{orderId}")
+//    public ResponseEntity<List<OrderItem>> getOrderItemsByOrderId(@PathVariable Long orderId) {
+//        return ResponseEntity.ok(orderItemService.getOrderItemsByOrderId(orderId));
+//    }
 
     @GetMapping("/product/quantity/{productId}")
     public ResponseEntity<Integer> getTotalQuantityOrderedOfProduct(@PathVariable Long productId) {
+        // total quantity of a specific product ordered across all orders
         try {
             Integer totalQuantity = orderItemService.getTotalQuantityOrderedOfProduct(productId);
             return ResponseEntity.ok(totalQuantity);
@@ -49,7 +51,7 @@ public class OrderItemController {
         }
     }
 
-    @GetMapping("/orderItems/{orderId}")
+    @GetMapping("/order/{orderId}")
     public ResponseEntity<List<OrderItem>> findItemsByOrderId(@PathVariable Long orderId) {
         try {
             List<OrderItem> orderItems = orderItemService.findItemsByOrderId(orderId);
