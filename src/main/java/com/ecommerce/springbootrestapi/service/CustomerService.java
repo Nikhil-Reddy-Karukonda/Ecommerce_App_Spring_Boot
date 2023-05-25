@@ -37,12 +37,12 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public List<Customer> getCustomersByCity(String city) {
-        return customerRepository.findByAddress_City(city);
+        return customerRepository.findByAddresses_City(city);
     }
 
     @Transactional(readOnly = true)
     public List<Customer> getCustomersByOrderedProductId(Long productId) {
-        return customerRepository.findByOrders_Products_Id(productId);
+        return customerRepository.findCustomersByProductId(productId);
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +52,7 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public List<Customer> getCustomersByOrderedProductInCategory(Long categoryId) {
-        return customerRepository.findByOrders_OrderItems_Product_Category_Id(categoryId);
+        return customerRepository.findCustomersByCategory(categoryId);
     }
 
     @Transactional
