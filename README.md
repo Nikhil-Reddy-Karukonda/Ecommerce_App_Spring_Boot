@@ -1,4 +1,4 @@
-# 🛍️ Ecommerce_App_Spring_Boot
+# 🛒 Ecommerce_App_Spring_Boot
 
 This Spring Boot application is designed for e-commerce solutions, integrating Spring Data JPA and a PostgreSQL database. It provides a robust backend system for managing e-commerce operations.
 
